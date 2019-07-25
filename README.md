@@ -14,7 +14,7 @@ func myHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Lambda handler (我們不希望將原來的寫法改為 lambda)
+[Lambda handler] (我們希望沿用上面的寫法，而**不是**需要把它改為下方的方式)
 
 ```go
 func HandleRequest(ctx context.Context, name MyEvent) (string, error) {
@@ -32,13 +32,35 @@ func HandleRequest(ctx context.Context, name MyEvent) (string, error) {
 
 首先您必須先自行產生或跟您的管理員拿一組 AWS 使用者 access key ID 與 Secret Access Key，為了後續使用 serverless 部署自動化。
 
-- 部署套件
+拿到你的 credentials 後，
 
-為了使用 [serverless] 進行部署，您必須先安裝該套件 serverless-cli：
+- Docker
+
+您至少需要安裝 docker 環境
+
+#### 建立環境 Docker Image
 
 ```bash
-# Install the serverless cli
-npm install -g serverless
+$ ./tools.sh init
+# ... init ...
+
+$ docker images
+# 最後會找到 image go-serverless
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+go-serverless       1.x                 2b51d1f2f6b3        4 seconds ago       507MB
+```
+
+#### 利用 Docker Image 去編譯 Go 程式碼
+
+```bash
+$ ./tools.sh build
+```
+
+#### Serverless 部署
+
+```bash
+$ ./tools.sh deploy
 ```
 
 [serverless]:https://serverless.com/
+[Lambda handler]:https://docs.aws.amazon.com/en_us/lambda/latest/dg/go-programming-model-handler-types.html
