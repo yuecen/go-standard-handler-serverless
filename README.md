@@ -86,6 +86,8 @@ Status Codes  [code:count]               0:2208  200:5292
 
 #### 執行完第一次後馬上進行第二次測試
 
+**注意**：在第二次測試期間如果發現還有大量 status code 0 的存在，請檢察網路狀況。
+
 ConcurrentExecutions: 36/500
 
 ```bash
